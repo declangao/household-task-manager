@@ -29,7 +29,7 @@ function NavLinks() {
     href: string;
   }[] = [
     { label: 'Dashboard', href: '/' },
-    { label: 'Tasks', href: '/tasks' },
+    { label: 'Tasks', href: '/tasks/list' },
   ];
 
   return (
@@ -38,8 +38,8 @@ function NavLinks() {
         <li key={link.label}>
           <Link
             href={link.href}
-            className={`text-primary-content hover:text-primary transition-colors ${
-              currPath === link.href ? 'text-primary' : ''
+            className={`hover:text-primary transition-colors ${
+              currPath === link.href ? '!text-primary' : ''
             }`}
           >
             {link.label}
