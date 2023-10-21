@@ -4,6 +4,10 @@ import React from 'react';
 import { BsHouseHeartFill } from 'react-icons/bs';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSession, getCsrfToken, signOut } from 'next-auth/react';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import Avatar from '@/components/Avatar';
 
 export default function Navbar() {
   return (
@@ -15,9 +19,54 @@ export default function Navbar() {
           </Link>
           <NavLinks />
         </div>
-        <div></div>
+        <div>
+          <AuthStatus />
+        </div>
       </div>
     </nav>
+  );
+}
+
+function AuthStatus() {
+  const { data: session, status } = useSession();
+
+  const handleLogOut = async () => {
+    await signOut();
+  };
+
+  if (status === 'loading') return <Skeleton width="3rem" />;
+
+  if (status === 'unauthenticated')
+    return <Link href="/api/auth/signin">Login</Link>;
+
+  return (
+    <div className="dropdown dropdown-end cursor-pointer">
+      <label tabIndex={0} className="m-1 cursor-pointer">
+        <Avatar name={session?.user?.name!} />
+      </label>
+      <ul
+        tabIndex={0}
+        className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-64 text-center"
+      >
+        <li className="text-lg">Welcome, {session?.user?.name!}!</li>
+        <li>
+          <Link
+            href="/api/auth/signout"
+            className="w-full flex justify-center items-center"
+          >
+            Log Out
+          </Link>
+        </li>
+        <li>
+          <a
+            className="w-full flex justify-center items-center"
+            onClick={handleLogOut}
+          >
+            Log Out
+          </a>
+        </li>
+      </ul>
+    </div>
   );
 }
 

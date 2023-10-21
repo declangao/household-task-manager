@@ -20,4 +20,5 @@ export const patchTaskSchema = z.object({
   status: z
     .enum(['NOT_STARTED', 'IN_PROGRESS', 'ON_HOLD', 'COMPLETED'])
     .optional(),
+  userId: z.string().optional().nullable(),
 });

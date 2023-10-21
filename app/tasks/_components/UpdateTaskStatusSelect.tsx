@@ -54,7 +54,7 @@ export default function UpdateTaskStatusSelect({ task }: { task: Task }) {
         onChange={handleStatusChange}
       >
         {statuses.map((s) => (
-          <option key={s.value} value={s.value} className="!h-8">
+          <option key={s.value} value={s.value}>
             {s.label}
           </option>
         ))}

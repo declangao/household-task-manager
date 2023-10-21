@@ -24,6 +24,7 @@ export async function PATCH(
       title: body.title,
       description: body.description,
       status: body.status,
+      userId: body.userId,
     },
   });
 

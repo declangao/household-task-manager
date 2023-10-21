@@ -6,6 +6,7 @@ import TaskDetail from './TaskDetail';
 import EditTaskButton from '../_components/EditTaskButton';
 import DeleteTaskButton from '../_components/DeleteTaskButton';
 import UpdateTaskStatusSelect from '../_components/UpdateTaskStatusSelect';
+import AssigneeSelect from '../_components/AssigneeSelect';
 
 export default async function TaskDetailPage({
   params,
@@ -24,6 +25,7 @@ export default async function TaskDetailPage({
       </div>
 
       <div className="flex flex-col gap-3">
+        <AssigneeSelect task={task} />
         <EditTaskButton id={task.id} />
         <DeleteTaskButton id={task.id} />
         <UpdateTaskStatusSelect task={task} />
