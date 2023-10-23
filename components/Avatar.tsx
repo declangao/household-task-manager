@@ -17,7 +17,7 @@ export default function Avatar({ name }: { name: string }) {
 
   return (
     <div className="mask mask-circle bg-primary h-8 w-8 inline-flex justify-center items-center">
-      <div className="text-lg">{getInitials()}</div>
+      <div className="text-lg text-primary-content">{getInitials()}</div>
     </div>
   );
 }

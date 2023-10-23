@@ -43,19 +43,24 @@ export default function AssigneeSelect({ task }: { task: Task }) {
 
   return (
     <>
-      <select
-        className="select select-bordered btn-wide"
-        defaultValue={task.userId || ''}
-        disabled={isPending}
-        onChange={handleAssigneeChange}
-      >
-        <option value={''}>Unassigned</option>
-        {users!.map((user) => (
-          <option key={user.id} value={user.id}>
-            {user.name}
-          </option>
-        ))}
-      </select>
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">Select Assignee:</span>
+        </label>
+        <select
+          className="select select-sm select-bordered btn-wide"
+          defaultValue={task.userId || ''}
+          disabled={isPending}
+          onChange={handleAssigneeChange}
+        >
+          <option value={''}>Unassigned</option>
+          {users!.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <Toaster />
     </>

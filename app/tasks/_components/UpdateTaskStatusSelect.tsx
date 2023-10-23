@@ -6,7 +6,12 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function UpdateTaskStatusSelect({ task }: { task: Task }) {
+type Props = {
+  task: Task;
+  showLabel?: Boolean;
+};
+
+export default function UpdateTaskStatusSelect({ task, showLabel }: Props) {
   const statuses: { label: string; value: Status }[] = [
     { label: 'Not Started', value: 'NOT_STARTED' },
     { label: 'In Progress', value: 'IN_PROGRESS' },
@@ -47,18 +52,25 @@ export default function UpdateTaskStatusSelect({ task }: { task: Task }) {
 
   return (
     <>
-      <select
-        className={`select ${statusColorMap[status]} btn-wide`}
-        defaultValue={task.status}
-        disabled={isPending}
-        onChange={handleStatusChange}
-      >
-        {statuses.map((s) => (
-          <option key={s.value} value={s.value}>
-            {s.label}
-          </option>
-        ))}
-      </select>
+      <div className="form-control w-full max-w-xs">
+        {showLabel && (
+          <label className="label">
+            <span className="label-text">Change Status:</span>
+          </label>
+        )}
+        <select
+          className={`select select-sm ${statusColorMap[status]} btn-wide`}
+          defaultValue={task.status}
+          disabled={isPending}
+          onChange={handleStatusChange}
+        >
+          {statuses.map((s) => (
+            <option key={s.value} value={s.value}>
+              {s.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <Toaster />
     </>

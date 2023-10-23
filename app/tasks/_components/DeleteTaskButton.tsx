@@ -27,7 +27,7 @@ export default function DeleteTaskButton({ id }: { id: string }) {
   return (
     <>
       <button
-        className="btn btn-error btn-wide"
+        className="btn btn-sm btn-error btn-wide"
         disabled={isPending}
         onClick={() => {
           (

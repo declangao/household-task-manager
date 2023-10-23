@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import prisma from '@/prisma/client';
 import DeleteTaskButton from '../../_components/DeleteTaskButton';
 import UpdateTaskStatusSelect from '../../_components/UpdateTaskStatusSelect';
+import AssigneeSelect from '../../_components/AssigneeSelect';
 
 const TaskForm = dynamic(() => import('../../_components/TaskForm'), {
   ssr: false,
@@ -28,7 +29,8 @@ export default async function TaskEditPage({
 
       <div className="flex flex-col gap-3">
         <DeleteTaskButton id={task.id} />
-        <UpdateTaskStatusSelect task={task} />
+        <AssigneeSelect task={task} />
+        <UpdateTaskStatusSelect task={task} showLabel />
       </div>
     </div>
   );
