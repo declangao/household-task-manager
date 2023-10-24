@@ -17,7 +17,7 @@ export const statusMap: Record<
 
 export default function TaskStatusBadge({ status }: { status: Status }) {
   return (
-    <span className={`badge ${statusMap[status].color}`}>
+    <span className={`badge badge-sm ${statusMap[status].color}`}>
       {statusMap[status].label}
     </span>
   );

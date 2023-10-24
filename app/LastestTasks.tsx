@@ -22,14 +22,17 @@ export default async function LastestTasks() {
           {tasks.map((task) => (
             <tr key={task.id}>
               <td>
-                <Link href={`/tasks/${task.id}`} className="text-primary">
-                  {task.title}
-                </Link>
+                <div className="flex justify-between items-center">
+                  <div className="flex flex-col">
+                    <Link href={`/tasks/${task.id}`} className="text-primary">
+                      {task.title}
+                    </Link>
+                    <TaskStatusBadge status={task.status} />
+                  </div>
+
+                  {task.user?.name && <Avatar name={task.user?.name!} />}
+                </div>
               </td>
-              <td>
-                <TaskStatusBadge status={task.status} />
-              </td>
-              <td>{task.user?.name && <Avatar name={task.user?.name!} />}</td>
             </tr>
           ))}
         </tbody>

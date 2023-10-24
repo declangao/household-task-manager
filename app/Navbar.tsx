@@ -49,14 +49,14 @@ function AuthStatus() {
         className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-64 text-center"
       >
         <li className="text-lg">Welcome, {session?.user?.name!}!</li>
-        <li>
+        {/* <li>
           <Link
             href="/api/auth/signout"
             className="w-full flex justify-center items-center"
           >
             Log Out
           </Link>
-        </li>
+        </li> */}
         <li>
           <a
             className="w-full flex justify-center items-center"

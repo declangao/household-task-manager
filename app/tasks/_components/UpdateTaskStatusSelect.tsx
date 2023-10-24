@@ -9,9 +9,14 @@ import toast, { Toaster } from 'react-hot-toast';
 type Props = {
   task: Task;
   showLabel?: Boolean;
+  wide?: Boolean;
 };
 
-export default function UpdateTaskStatusSelect({ task, showLabel }: Props) {
+export default function UpdateTaskStatusSelect({
+  task,
+  showLabel,
+  wide,
+}: Props) {
   const statuses: { label: string; value: Status }[] = [
     { label: 'Not Started', value: 'NOT_STARTED' },
     { label: 'In Progress', value: 'IN_PROGRESS' },
@@ -59,7 +64,9 @@ export default function UpdateTaskStatusSelect({ task, showLabel }: Props) {
           </label>
         )}
         <select
-          className={`select select-sm ${statusColorMap[status]} btn-wide`}
+          className={`select select-sm ${statusColorMap[status]} ${
+            wide ? 'btn-wide' : ''
+          }`}
           defaultValue={task.status}
           disabled={isPending}
           onChange={handleStatusChange}

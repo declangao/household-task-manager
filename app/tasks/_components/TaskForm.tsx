@@ -75,7 +75,10 @@ export default function TaskForm({ task }: { task?: Task }) {
           <p className="text-error">{errors.description?.message}</p>
         )}
 
-        <button className="btn btn-primary normal-case" disabled={isPending}>
+        <button
+          className="btn btn-primary btn-sm normal-case"
+          disabled={isPending}
+        >
           {isPending ? (
             <>
               {task ? 'Saving' : 'Submitting'}{' '}

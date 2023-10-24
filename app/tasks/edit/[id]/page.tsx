@@ -28,9 +28,10 @@ export default async function TaskEditPage({
       </div>
 
       <div className="flex flex-col gap-3">
-        <DeleteTaskButton id={task.id} />
         <AssigneeSelect task={task} />
-        <UpdateTaskStatusSelect task={task} showLabel />
+        <UpdateTaskStatusSelect task={task} showLabel wide />
+        <div className="mt-2" />
+        <DeleteTaskButton id={task.id} />
       </div>
     </div>
   );

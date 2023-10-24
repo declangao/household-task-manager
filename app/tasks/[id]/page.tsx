@@ -26,8 +26,8 @@ export default async function TaskDetailPage({
 
       <div className="flex flex-col gap-3 items-center md:items-start">
         <AssigneeSelect task={task} />
-        <UpdateTaskStatusSelect task={task} showLabel={true} />
-        <div className="mt-4" />
+        <UpdateTaskStatusSelect task={task} showLabel={true} wide />
+        <div className="mt-2" />
         <EditTaskButton id={task.id} />
         <DeleteTaskButton id={task.id} />
       </div>
