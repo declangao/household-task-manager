@@ -55,7 +55,7 @@ export default function TaskStatistics({
           className="w-full"
         >
           <div
-            className={`card bg-base-100 shadow-md ${stat.backrgound} bg-opacity-30 flex-grow-1 flex-shrink-1 hover:shadow-xl`}
+            className={`card shadow-md ${stat.backrgound} bg-opacity-50 flex-grow-1 flex-shrink-1 hover:shadow-xl`}
           >
             <div className="card-body items-center p-4">
               <h2 className="card-title">{stat.label}</h2>

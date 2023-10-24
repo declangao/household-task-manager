@@ -57,7 +57,7 @@ export default function UpdateTaskStatusSelect({
 
   return (
     <>
-      <div className="form-control w-full max-w-xs">
+      <div className="form-control w-full max-w-xs items-center md:items-start">
         {showLabel && (
           <label className="label">
             <span className="label-text">Change Status:</span>

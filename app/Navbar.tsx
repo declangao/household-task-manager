@@ -19,9 +19,8 @@ export default function Navbar() {
           </Link>
           <NavLinks />
         </div>
-        <div>
-          <AuthStatus />
-        </div>
+
+        <AuthStatus />
       </div>
     </nav>
   );
@@ -82,7 +81,7 @@ function NavLinks() {
   ];
 
   return (
-    <ul className="flex gap-4">
+    <ul className="flex gap-3">
       {links.map((link) => (
         <li key={link.label}>
           <Link

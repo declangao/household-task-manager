@@ -43,7 +43,7 @@ export default function AssigneeSelect({ task }: { task: Task }) {
 
   return (
     <>
-      <div className="form-control w-full max-w-xs">
+      <div className="form-control w-full max-w-xs items-center md:items-start">
         <label className="label">
           <span className="label-text">Select Assignee:</span>
         </label>

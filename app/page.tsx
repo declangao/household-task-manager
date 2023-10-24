@@ -1,7 +1,10 @@
 import prisma from '@/prisma/client';
+import { Metadata } from 'next';
+
 import TaskStatistics from './TaskStatistics';
 import TaskChart from './TaskChart';
 import LastestTasks from './LastestTasks';
+import Heading from './Heading';
 
 export default async function HomePage() {
   const tasks = await prisma.task.findMany();
@@ -21,6 +24,8 @@ export default async function HomePage() {
 
   return (
     <>
+      <Heading />
+
       <TaskStatistics
         notStarted={statistics.notStarted}
         inProgress={statistics.inProgress}
@@ -43,3 +48,8 @@ export default async function HomePage() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: 'Household Task Manager | Dashboard',
+  description: 'An overall view of all household tasks',
+};

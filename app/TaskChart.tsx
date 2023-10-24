@@ -35,7 +35,7 @@ export default function TaskChart({
       <BarChart data={data}>
         <XAxis dataKey="label" interval="preserveStart" />
         <YAxis allowDecimals={false} />
-        <Tooltip />
+        <Tooltip wrapperClassName="text-primary" />
         <Bar dataKey="value" className="fill-primary/70" />
       </BarChart>
     </ResponsiveContainer>
