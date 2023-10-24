@@ -5,6 +5,7 @@ import { Status } from '@prisma/client';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { IoCreateOutline } from 'react-icons/io5';
+import { useSession } from 'next-auth/react';
 
 const statuses: { label: string; value: Status | '' }[] = [
   { label: 'All', value: '' },
@@ -17,6 +18,7 @@ const statuses: { label: string; value: Status | '' }[] = [
 export default function TaskActions() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: session } = useSession();
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const status = e.target.value;
@@ -44,14 +46,16 @@ export default function TaskActions() {
         </select>
       </div>
 
-      <div className="tooltip tooltip-bottom" data-tip="Create a new task">
-        <Link href="/tasks/new">
-          <button className="btn btn-primary btn-sm normal-case">
-            <IoCreateOutline />
-            New Task
-          </button>
-        </Link>
-      </div>
+      {session && (
+        <div className="tooltip tooltip-bottom" data-tip="Create a new task">
+          <Link href="/tasks/new">
+            <button className="btn btn-primary btn-sm normal-case">
+              <IoCreateOutline />
+              New Task
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

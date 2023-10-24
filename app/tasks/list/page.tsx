@@ -38,7 +38,7 @@ export default async function TasksPage({
 
   const tasks = await prisma.task.findMany({
     where,
-    orderBy,
+    orderBy: sort ? orderBy : { createdAt: 'desc' },
     take: pageSize,
     skip: (page - 1) * pageSize,
   });

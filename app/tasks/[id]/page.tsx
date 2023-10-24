@@ -7,12 +7,16 @@ import EditTaskButton from '../_components/EditTaskButton';
 import DeleteTaskButton from '../_components/DeleteTaskButton';
 import UpdateTaskStatusSelect from '../_components/UpdateTaskStatusSelect';
 import AssigneeSelect from '../_components/AssigneeSelect';
+import { getServerSession } from 'next-auth';
+import authOptions from '@/app/auth/authOptions';
 
 export default async function TaskDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
+  const session = await getServerSession(authOptions);
+
   const task = await prisma.task.findUnique({
     where: { id: params.id },
   });
@@ -24,13 +28,15 @@ export default async function TaskDetailPage({
         <TaskDetail task={task} />
       </div>
 
-      <div className="flex flex-col gap-3 items-center md:items-start">
-        <AssigneeSelect task={task} />
-        <UpdateTaskStatusSelect task={task} showLabel={true} wide />
-        <div className="mt-2" />
-        <EditTaskButton id={task.id} />
-        <DeleteTaskButton id={task.id} />
-      </div>
+      {session && (
+        <div className="flex flex-col gap-3 items-center md:items-start">
+          <AssigneeSelect task={task} />
+          <UpdateTaskStatusSelect task={task} showLabel={true} wide />
+          <div className="mt-2" />
+          <EditTaskButton id={task.id} />
+          <DeleteTaskButton id={task.id} />
+        </div>
+      )}
     </div>
   );
 }
