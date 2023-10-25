@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { cache } from 'react';
 import { notFound } from 'next/navigation';
+import { getServerSession } from 'next-auth';
 
 import prisma from '@/prisma/client';
 import TaskDetail from './TaskDetail';
@@ -7,19 +8,24 @@ import EditTaskButton from '../_components/EditTaskButton';
 import DeleteTaskButton from '../_components/DeleteTaskButton';
 import UpdateTaskStatusSelect from '../_components/UpdateTaskStatusSelect';
 import AssigneeSelect from '../_components/AssigneeSelect';
-import { getServerSession } from 'next-auth';
 import authOptions from '@/app/auth/authOptions';
 
-export default async function TaskDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+const fetchTask = cache((taskId: string) => {
+  return prisma.task.findUnique({
+    where: { id: taskId },
+  });
+});
+
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function TaskDetailPage({ params }: Props) {
   const session = await getServerSession(authOptions);
 
-  const task = await prisma.task.findUnique({
-    where: { id: params.id },
-  });
+  const task = await fetchTask(params.id);
   if (!task) notFound();
 
   return (
@@ -39,4 +45,13 @@ export default async function TaskDetailPage({
       )}
     </div>
   );
+}
+
+export async function generateMetadata({ params }: Props) {
+  const task = await fetchTask(params.id);
+
+  return {
+    title: task?.title,
+    description: task?.description || 'Detail of task ' + task?.title,
+  };
 }

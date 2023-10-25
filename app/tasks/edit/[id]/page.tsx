@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cache } from 'react';
 import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
 
@@ -11,14 +11,20 @@ const TaskForm = dynamic(() => import('../../_components/TaskForm'), {
   ssr: false,
 });
 
-export default async function TaskEditPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const task = await prisma.task.findUnique({
-    where: { id: params.id },
+const fetchTask = cache((taskId: string) => {
+  return prisma.task.findUnique({
+    where: { id: taskId },
   });
+});
+
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function TaskEditPage({ params }: Props) {
+  const task = await fetchTask(params.id);
   if (!task) notFound();
 
   return (
@@ -35,4 +41,12 @@ export default async function TaskEditPage({
       </div>
     </div>
   );
+}
+
+export async function generateMetadata({ params }: Props) {
+  const task = await fetchTask(params.id);
+
+  return {
+    title: task?.title + ' | Edit',
+  };
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Metadata } from 'next';
 import prisma from '@/prisma/client';
 
 import TaskTable from './TaskTable';
@@ -57,3 +58,8 @@ export default async function TasksPage({
 }
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Task List | Household Task Manager',
+  description: 'View all tasks',
+};
