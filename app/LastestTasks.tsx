@@ -1,8 +1,9 @@
-import Avatar from '@/components/Avatar';
-import TaskStatusBadge from '@/components/TaskStatusBadge';
-import prisma from '@/prisma/client';
 import Link from 'next/link';
 import React from 'react';
+
+import prisma from '@/prisma/client';
+import TaskStatusBadge from '@/components/TaskStatusBadge';
+import Avatar from '@/components/Avatar';
 
 export default async function LastestTasks() {
   const tasks = await prisma.task.findMany({

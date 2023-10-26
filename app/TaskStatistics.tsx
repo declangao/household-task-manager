@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import React from 'react';
+import { motion } from 'framer-motion';
 
 type Props = {
   notStarted: number;
@@ -47,23 +50,52 @@ export default function TaskStatistics({
   ];
 
   return (
-    <div className="flex justify-center flex-wrap md:flex-nowrap gap-4">
+    <motion.div
+      className="flex justify-center flex-wrap md:flex-nowrap gap-4"
+      variants={{
+        hidden: {
+          scale: 0,
+          opacity: 0,
+        },
+        visible: {
+          scale: 1,
+          opacity: 1,
+          transition: {
+            staggerChildren: 0.1,
+          },
+        },
+      }}
+      initial="hidden"
+      animate="visible"
+    >
       {statistics.map((stat) => (
-        <Link
+        <motion.div
           key={stat.label}
-          href={`/tasks/list${stat.query}`}
           className="w-full"
+          variants={{
+            hidden: {
+              y: -100,
+              opacity: 0,
+            },
+            visible: {
+              y: 0,
+              opacity: 1,
+            },
+          }}
+          whileHover={{ scale: 1.05 }}
         >
-          <div
-            className={`card shadow-md ${stat.backrgound} bg-opacity-50 flex-grow-1 flex-shrink-1 hover:shadow-xl`}
-          >
-            <div className="card-body items-center p-4">
-              <h2 className="card-title">{stat.label}</h2>
-              <span className="text-5xl font-bold">{stat.value}</span>
+          <Link href={`/tasks/list${stat.query}`}>
+            <div
+              className={`card shadow-md ${stat.backrgound} bg-opacity-50 flex-grow-1 flex-shrink-1 hover:shadow-xl`}
+            >
+              <div className="card-body items-center p-4">
+                <h2 className="card-title">{stat.label}</h2>
+                <span className="text-5xl font-bold">{stat.value}</span>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }

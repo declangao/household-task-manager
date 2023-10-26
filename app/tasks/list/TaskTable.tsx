@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+'use client';
+
+import React from 'react';
 import { Task } from '@prisma/client';
 import Link from 'next/link';
 import { GoSortAsc, GoSortDesc } from 'react-icons/go';
+import { useSession } from 'next-auth/react';
+import { motion } from 'framer-motion';
 
 import TaskStatusBadge from '@/components/TaskStatusBadge';
 import UpdateTaskStatusSelect from '../_components/UpdateTaskStatusSelect';
@@ -14,6 +18,8 @@ type Props = {
 };
 
 export default function TaskTable({ tasks, searchParams }: Props) {
+  const { data: session } = useSession();
+
   const getSortParams = (sort: string) => {
     if (!searchParams.order) return { sort, order: 'asc' };
     if (searchParams.order === 'asc') return { sort, order: 'desc' };
@@ -68,12 +74,42 @@ export default function TaskTable({ tasks, searchParams }: Props) {
                 )}
             </Link>
           </th>
-          <th className="hidden md:table-cell">Status</th>
+          {session && <th className="hidden md:table-cell">Status</th>}
         </tr>
       </thead>
-      <tbody>
+
+      <motion.tbody
+        key={Math.random()} // Key needs to change in order for stagger effect to work on every render
+        variants={{
+          hidden: {
+            scale: 0,
+            opacity: 0,
+          },
+          visible: {
+            scale: 1,
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.05,
+            },
+          },
+        }}
+        initial="hidden"
+        animate="visible"
+      >
         {tasks.map((task) => (
-          <tr key={task.id}>
+          <motion.tr
+            key={task.id}
+            variants={{
+              hidden: {
+                y: -100,
+                opacity: 0,
+              },
+              visible: {
+                y: 0,
+                opacity: 1,
+              },
+            }}
+          >
             <td>
               <Link href={`/tasks/${task.id}`} className="text-primary">
                 {task.title}
@@ -91,12 +127,14 @@ export default function TaskTable({ tasks, searchParams }: Props) {
             <td className="hidden md:table-cell">
               {task.createdAt.toDateString()}
             </td>
-            <td className="hidden md:table-cell">
-              <UpdateTaskStatusSelect task={task} />
-            </td>
-          </tr>
+            {session && (
+              <td className="hidden md:table-cell">
+                <UpdateTaskStatusSelect task={task} />
+              </td>
+            )}
+          </motion.tr>
         ))}
-      </tbody>
+      </motion.tbody>
     </table>
   );
 }
