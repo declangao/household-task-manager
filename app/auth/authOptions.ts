@@ -3,7 +3,6 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import { NextAuthOptions } from 'next-auth';
 
 import prisma from '@/prisma/client';
-import { verify } from 'crypto';
 import { verifyPassword } from '@/utils/auth';
 
 const authOptions: NextAuthOptions = {
@@ -51,9 +50,9 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
-  // pages: {
-  //   signIn: '/auth/signin',
-  // },
+  pages: {
+    signIn: '/auth/signin',
+  },
 };
 
 export default authOptions;

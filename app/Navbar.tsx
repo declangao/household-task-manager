@@ -4,7 +4,7 @@ import React from 'react';
 import { BsHouseHeartFill } from 'react-icons/bs';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useSession, getCsrfToken, signOut } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Avatar from '@/components/Avatar';
@@ -45,7 +45,7 @@ function AuthStatus() {
       </label>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-64 text-center"
+        className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-64 text-center space-y-4"
       >
         <li className="text-lg">Welcome, {session?.user?.name!}!</li>
         {/* <li>
