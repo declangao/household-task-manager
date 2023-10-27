@@ -2,6 +2,7 @@
 
 import { signIn } from 'next-auth/react';
 import React, { useRef } from 'react';
+import { motion } from 'framer-motion';
 
 export default function LoginPage({
   searchParams,
@@ -30,25 +31,33 @@ export default function LoginPage({
         )}
 
         <form className="flex flex-col gap-3">
-          <input
+          <motion.input
             type="text"
             placeholder="Username"
             ref={usernameRef}
             className="input input-bordered w-full"
+            initial={{ y: -200, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
           />
-          <input
+          <motion.input
             type="password"
             placeholder="Password"
             ref={passwordRef}
             className="input input-bordered w-full"
+            initial={{ y: -200, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.1 }}
           />
 
-          <button
+          <motion.button
             className="btn btn-primary normal-case"
             onClick={handleSubmit}
+            initial={{ y: 200, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
           >
             Login
-          </button>
+          </motion.button>
         </form>
 
         <div className="text-base-content/70">

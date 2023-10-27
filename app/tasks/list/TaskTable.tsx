@@ -79,7 +79,6 @@ export default function TaskTable({ tasks, searchParams }: Props) {
       </thead>
 
       <motion.tbody
-        key={Math.random()} // Key needs to change in order for stagger effect to work on every render
         variants={{
           hidden: {
             scale: 0,
