@@ -10,6 +10,7 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Household Task Manager',
   description: 'A simple tool to manage your household chores.',
+  icons: [{ rel: 'icon', url: 'favicon.png', type: 'image/png' }],
 };
 
 export default function RootLayout({
